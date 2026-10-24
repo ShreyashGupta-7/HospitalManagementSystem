@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Colour tokens. All text/background pairs meet WCAG AA (4.5:1) or better. */
+:root {
+  --c-bg: 246 248 247;
+  --c-surface: 255 255 255;
+  --c-soft: 234 241 239;
+  --c-ink: 17 24 39;
+  --c-muted: 64 76 92;
+  --c-line: 190 204 200;
+  --c-primary: 13 101 89;
+  --c-on-primary: 255 255 255;
+  --c-danger: 180 24 24;
+  --c-on-danger: 255 255 255;
+  --c-danger-soft: 254 228 228;
+  --c-warn: 138 60 10;
+  --c-warn-soft: 254 243 199;
+  --c-ok: 20 95 50;
+  --c-ok-soft: 220 247 228;
+  --c-info: 29 62 170;
+  --c-info-soft: 222 234 254;
+  --c-focus: 29 78 216;
+  color-scheme: light;
+}
+
+/* High contrast: black background, bright text, yellow actions. */
+html.hc {
+  --c-bg: 0 0 0;
+  --c-surface: 0 0 0;
+  --c-soft: 28 28 28;
+  --c-ink: 255 255 255;
+  --c-muted: 235 235 235;
+  --c-line: 255 255 255;
+  --c-primary: 255 221 0;
+  --c-on-primary: 0 0 0;
+  --c-danger: 255 110 110;
+  --c-on-danger: 0 0 0;
+  --c-danger-soft: 70 0 0;
+  --c-warn: 255 205 90;
+  --c-warn-soft: 55 38 0;
+  --c-ok: 130 255 150;
+  --c-ok-soft: 0 48 12;
+  --c-info: 150 200 255;
+  --c-info-soft: 0 28 66;
+  --c-focus: 255 221 0;
+  color-scheme: dark;
+}
+
+/* Three text sizes. Everything uses rem, so the whole screen grows. Body text is at least 18px. */
+html { font-size: 18px; -webkit-text-size-adjust: 100%; }
+html[data-size='2'] { font-size: 21px; }
+html[data-size='3'] { font-size: 24px; }
+
+body {
+  @apply bg-bg text-ink font-sans antialiased;
+  line-height: 1.5;
+  overflow-wrap: anywhere; /* long Tamil/Hindi words never push the layout wider */
+}
+
+/* A thick, visible keyboard focus ring everywhere. */
+:focus-visible {
+  outline: 3px solid rgb(var(--c-focus));
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-3 rounded-2xl px-5 py-3 text-lg font-semibold min-h-btn
+      transition-colors select-none disabled:opacity-60 disabled:cursor-not-allowed text-center leading-snug;
+  }
+  .btn-primary { @apply btn bg-primary text-on-primary hover:brightness-110 active:brightness-95; }
+  .btn-danger { @apply btn bg-danger text-on-danger hover:brightness-110; }
+  .btn-secondary { @apply btn bg-surface text-ink border-2 border-line hover:bg-soft; }
+  .btn-ghost { @apply btn bg-transparent text-primary hover:bg-soft; }
+  .btn-sm { @apply min-h-[2.75rem] px-3 py-2 text-base rounded-xl; }
+  .card { @apply bg-surface rounded-2xl border border-line p-4; }
+  .input {
+    @apply w-full rounded-2xl border-2 border-line bg-surface px-4 py-3 text-xl text-ink min-h-btn placeholder:text-muted;
+  }
+  .input:focus { @apply border-primary; }
+  .label { @apply block text-lg font-semibold mb-2; }
+  .muted { @apply text-muted; }
+  .h1 { @apply text-2xl font-bold leading-tight; }
+  .h2 { @apply text-xl font-bold leading-tight; }
+  .pill { @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-base font-semibold; }
+}
+
+/* Keep the bottom bar from covering content, including on phones with a home bar. */
+.pb-safe { padding-bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px)); }
+.bottom-safe { padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px)); }
+
+/* Respect "reduce motion". */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgb(var(--c-danger) / 0.55); }
+  70% { box-shadow: 0 0 0 14px rgb(var(--c-danger) / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(var(--c-danger) / 0); }
+}
+.pulse { animation: pulse-ring 1.6s infinite; }
+
+@keyframes slide-down {
+  from { transform: translateY(-110%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.slide-down { animation: slide-down 0.35s ease-out; }
+
+/* Route line on the floor plan. */
+@keyframes dash { to { stroke-dashoffset: -24; } }
+.route-line { stroke-dasharray: 10 6; animation: dash 1s linear infinite; }
+
+/* Print only the slip. */
+@media print {
+  body * { visibility: hidden !important; }
+  .print-area, .print-area * { visibility: visible !important; }
+  .print-area { position: absolute; left: 0; top: 0; width: 100%; border: none !important; }
+  .no-print { display: none !important; }
+  html { font-size: 14px; }
+  html.hc { --c-bg: 255 255 255; --c-surface: 255 255 255; --c-ink: 0 0 0; --c-muted: 40 40 40; --c-line: 0 0 0; --c-primary: 0 0 0; }
+}

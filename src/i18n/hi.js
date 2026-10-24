@@ -1,0 +1,1 @@
+export default { langName: 'हिंदी' };

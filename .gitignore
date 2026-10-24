@@ -1,0 +1,9 @@
+node_modules
+dist
+dev-dist
+.env
+.env.local
+server/state.json
+test-results
+*.log
+.DS_Store
