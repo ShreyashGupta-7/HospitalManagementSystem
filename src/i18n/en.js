@@ -45,9 +45,6 @@ export default {
   // Floor names inside a sentence (English needs lower case there).
   floorsIn: { G: 'ground floor', 1: 'first floor', 2: 'second floor' },
 
-  // Floor names inside a sentence (English needs lower case there).
-  floorsIn: { G: 'ground floor', 1: 'first floor', 2: 'second floor' },
-
   floors: {
     G: 'Ground floor',
     1: 'First floor',

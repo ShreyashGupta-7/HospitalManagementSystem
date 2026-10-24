@@ -44,11 +44,12 @@ for (const [label, settings] of [
       });
       return { scrollW: document.documentElement.scrollWidth, w, out: out.slice(0, 4) };
     });
-    const english = settings.lang !== 'en' ? await page.evaluate(() => {
+    // The language picker shows every language on purpose, and the board rotates through English.
+    const english = settings.lang !== 'en' && r !== '/language' && r !== '/board' ? await page.evaluate(() => {
       // Words that look like leftover English UI text (ignores tokens, numbers, OPD/X-ray terms).
       const text = document.body.innerText;
       const words = text.match(/\b[A-Za-z]{4,}\b/g) || [];
-      const allow = /^(OPD|Casualty|CASUALTY|Saathi|SAATHI|City|District|Hospital|Ramesh|Kamla|Room|X-ray|Xray|Sharma|Verma|Meena|Rajesh|Anjali|Sunita|Patel|Imran|Khan|Lakshmi|Iyer|Arvind|Nair|Pooja|Singh|English|Languages|voice)$/;
+      const allow = /^(OPD|Casualty|CASUALTY|Saathi|SAATHI|City|District|Hospital|Ramesh|Kamla|Room|X-ray|Xray|Sharma|Verma|Meena|Rajesh|Anjali|Sunita|Patel|Imran|Khan|Lakshmi|Iyer|Arvind|Nair|Pooja|Singh|English|Languages|voice|General|Medicine|Pharmacy|Ramp|Lab)$/;
       return [...new Set(words.filter((w) => !allow.test(w)))].slice(0, 12);
     }) : [];
     const bad = errors.length || wide.scrollW > wide.w + 1 || english.length;
