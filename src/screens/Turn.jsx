@@ -200,7 +200,7 @@ export default function Turn() {
         <section className={`card border-2 ${done ? 'border-ok bg-ok-soft' : 'border-warn bg-warn-soft'}`}>
           <h1 className="h1 flex items-center gap-2">
             <Icon name={done ? 'check' : 'alert'} size={32} />
-            {t(done ? 'turn.doneTitle' : 'turn.noshowTitle')}
+            <span>{t(done ? 'turn.doneTitle' : 'turn.noshowTitle')}</span>
           </h1>
           <p className="text-lg mt-2">{t(done ? 'turn.doneText' : 'turn.noshowText')}</p>
         </section>
@@ -247,7 +247,7 @@ export default function Turn() {
 
       <section className="card border-2 border-primary text-center" aria-live="polite">
         <p className="text-lg text-muted">{t('turn.yourToken')}</p>
-        <p className="text-5xl font-black tracking-wider">{info.token}</p>
+        <p className="token-xl font-black tracking-wide">{info.token}</p>
         <p className="text-lg font-semibold mt-1">{t.dept(info.dept)}</p>
         <div className="mt-4 rounded-2xl bg-soft p-4">
           <p className="text-3xl font-black">{aheadText}</p>

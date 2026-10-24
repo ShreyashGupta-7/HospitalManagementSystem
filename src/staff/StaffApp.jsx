@@ -32,7 +32,7 @@ function PinGate() {
     <main id="main" className="min-h-screen flex items-center justify-center p-4">
       <form onSubmit={submit} className="card w-full max-w-sm space-y-4" noValidate>
         <h1 className="h1 flex items-center gap-2">
-          <Icon name="lock" size={30} className="text-primary" /> {t('staff.pinTitle')}
+          <Icon name="lock" size={30} className="text-primary" /> <span>{t('staff.pinTitle')}</span>
         </h1>
         <p className="text-lg">{t('staff.pinText')}</p>
         <div>

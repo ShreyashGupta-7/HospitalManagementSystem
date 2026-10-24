@@ -182,7 +182,7 @@ export default function Slip({ pending = false }) {
         </div>
         <div className="p-4">
           <p className="text-lg text-muted">{t('slip.token')}</p>
-          <p className="text-6xl font-black tracking-wider leading-none my-1">{token}</p>
+          <p className="token-xl font-black tracking-wide my-1" data-token>{token}</p>
           {firstName ? <p className="text-2xl font-bold">{firstName}</p> : null}
 
           <dl className="grid grid-cols-2 gap-x-3 gap-y-3 mt-4">
@@ -234,7 +234,7 @@ export default function Slip({ pending = false }) {
           <Icon name="users" size={26} />
           <span>{t('slip.track')}</span>
         </Link>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="adaptive-2">
           <ListenButton text={readText} label={t('slip.readAloud')} className="btn-secondary btn-sm !min-h-btn" size={24} />
           <button type="button" className="btn-secondary btn-sm !min-h-btn" onClick={() => setLarge(true)}>
             <Icon name="expand" size={24} />

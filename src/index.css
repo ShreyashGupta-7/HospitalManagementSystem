@@ -56,10 +56,15 @@ html[data-size='3'] { font-size: 24px; }
 body {
   @apply bg-bg text-ink font-sans antialiased;
   line-height: 1.5;
-  overflow-wrap: anywhere; /* long Tamil/Hindi words never push the layout wider */
+  overflow-wrap: break-word; /* break a word only if it cannot fit on a line by itself */
 }
 
 /* A thick, visible keyboard focus ring everywhere. */
+/* Let boxes shrink to the screen, so a long word wraps (and is split only if it cannot fit alone). */
+fieldset { min-width: 0; }
+.grid > *, .flex > *, .inline-flex > * { min-width: 0; }
+select, input { max-width: 100%; }
+
 :focus-visible {
   outline: 3px solid rgb(var(--c-focus));
   outline-offset: 3px;
@@ -87,6 +92,14 @@ body {
   .h2 { @apply text-xl font-bold leading-tight; }
   .pill { @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-base font-semibold; }
 }
+
+/* Two columns at normal text size, one column when the text is bigger. */
+.adaptive-2 { display: grid; gap: 0.5rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+html[data-size='2'] .adaptive-2, html[data-size='3'] .adaptive-2 { grid-template-columns: minmax(0, 1fr); }
+
+/* A token like MED-042 always stays on one line and shrinks on narrow screens. */
+.token-xl { white-space: nowrap; font-size: clamp(2.4rem, 14vw, 4rem); line-height: 1; }
+.token-lg { white-space: nowrap; font-size: clamp(2rem, 11vw, 3rem); line-height: 1.1; }
 
 /* Keep the bottom bar from covering content, including on phones with a home bar. */
 .pb-safe { padding-bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px)); }

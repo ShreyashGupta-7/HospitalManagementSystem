@@ -67,7 +67,7 @@ export default function Lost() {
 
       <h2 className="h2 flex items-center gap-2">
         <Icon name="help" size={28} className="text-primary" />
-        {t('find.nearestHelp', { place: t.place(help) })}
+        <span>{t('find.nearestHelp', { place: t.place(help) })}</span>
       </h2>
       <RouteView from={from} to={help} avoidStairs={settings.avoidStairs} headingLevel={3} />
 

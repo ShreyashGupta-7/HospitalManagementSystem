@@ -110,7 +110,7 @@ function UrgentSheet({ onClose }) {
         <div className="flex items-start justify-between gap-2">
           <h2 id="urgent-title" className="h1 text-danger flex items-center gap-2">
             <Icon name="hand" size={32} />
-            {t('urgent.title')}
+            <span>{t('urgent.title')}</span>
           </h2>
           <button type="button" className="btn-ghost btn-sm" onClick={onClose}>
             <Icon name="x" size={22} />
@@ -123,7 +123,7 @@ function UrgentSheet({ onClose }) {
             <p className="mt-2 text-lg">{t('urgent.explain')}</p>
             <fieldset className="mt-4">
               <legend className="label">{t('urgent.who')}</legend>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="adaptive-2">
                 {['patient', 'helper'].map((w) => (
                   <button
                     key={w}
@@ -156,7 +156,7 @@ function UrgentSheet({ onClose }) {
             {!flag.pending ? (
               <fieldset className="mt-4">
                 <legend className="label">{t('urgent.whereQ')}</legend>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="adaptive-2">
                   {WHERE.map((id) => (
                     <button
                       key={id}

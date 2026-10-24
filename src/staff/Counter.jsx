@@ -67,7 +67,7 @@ export default function Counter() {
         <article className="print-area card border-2 border-primary" lang={made.lang}>
           <p className="font-bold">{pt('hospital')} · {pt('slip.title')}</p>
           <p className="text-base text-muted mt-2">{pt('slip.token')}</p>
-          <p className="text-6xl font-black tracking-wider">{made.token}</p>
+          <p className="token-xl font-black tracking-wide">{made.token}</p>
           <p className="text-2xl font-bold">{made.firstName}</p>
           <p className="text-xl font-bold mt-3">{pt.dept(dept)}</p>
           <p className="text-xl">{roomLabel(pt, info, dept)} · {pt.floor(PLACES[room].floor)}</p>

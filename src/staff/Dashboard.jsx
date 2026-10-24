@@ -229,7 +229,7 @@ function DeptPanel({ dept, act }) {
   const [showAll, setShowAll] = useState(false);
   const s = deptStats(hospital, dept.id, now);
   const queue = hospital.queues[dept.id] || [];
-  const shown = showAll ? queue : queue.slice(0, 5);
+  const shown = showAll ? queue : queue.slice(0, 8);
   return (
     <section className="card !p-3 flex flex-col gap-3" aria-labelledby={`dept-${dept.id}`}>
       <div className="flex items-start gap-3">
@@ -297,9 +297,9 @@ function DeptPanel({ dept, act }) {
         ) : (
           <p className="text-base text-muted">{t('staff.queueEmpty')}</p>
         )}
-        {queue.length > 5 ? (
+        {queue.length > 8 ? (
           <button type="button" className="btn-ghost btn-sm mt-1" onClick={() => setShowAll((v) => !v)}>
-            {showAll ? '−' : `+${queue.length - 5}`}
+            {showAll ? '−' : `+${queue.length - 8}`}
           </button>
         ) : null}
       </div>

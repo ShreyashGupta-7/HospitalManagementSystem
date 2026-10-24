@@ -70,7 +70,7 @@ export default function RouteView({ from, to, avoidStairs, showMaps = true, head
       {showMaps
         ? floors.map((seg) => (
             <div key={seg.floor + seg.points[0].idx}>
-              <div className="flex items-center justify-between gap-2 mb-1">
+              <div className="flex flex-wrap items-center justify-between gap-x-2 mb-1">
                 <H className="h2">{t('find.mapOf', { floor: t.floorIn(seg.floor) })}</H>
                 <button type="button" className="btn-ghost btn-sm" onClick={() => setBig((b) => !b)} aria-pressed={big}>
                   <Icon name="expand" size={20} />

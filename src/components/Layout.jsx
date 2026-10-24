@@ -76,12 +76,12 @@ export default function Layout({ children }) {
       </main>
       <div className="no-print fixed bottom-0 inset-x-0 z-40 bg-surface/95 border-t-2 border-danger bottom-safe">
         <div className="max-w-xl mx-auto grid grid-cols-2 gap-2 px-2 pt-2">
-          <Link to="/emergency" className="btn-danger !px-2 !gap-2" aria-label={`${t('nav.emergency')}: 112, 108`}>
-            <Icon name="emergency" size={28} />
+          <Link to="/emergency" className="btn-danger !px-2 !py-1 !gap-0 !flex-col !text-base" aria-label={`${t('nav.emergency')}: 112, 108`}>
+            <Icon name="emergency" size={26} />
             <span>{t('nav.emergency')}</span>
           </Link>
-          <button type="button" className="btn !px-2 !gap-2 bg-surface text-danger border-2 border-danger hover:bg-danger-soft" onClick={openUrgent}>
-            <Icon name="hand" size={28} />
+          <button type="button" className="btn !px-2 !py-1 !gap-0 !flex-col !text-base bg-surface text-danger border-2 border-danger hover:bg-danger-soft" onClick={openUrgent}>
+            <Icon name="hand" size={26} />
             <span>{t('nav.urgentHelp')}</span>
           </button>
         </div>

@@ -25,7 +25,7 @@ export default function Emergency() {
       <section className="rounded-3xl bg-danger text-on-danger p-5" role="alert">
         <h1 className="text-3xl font-black flex items-center gap-3">
           <Icon name="emergency" size={44} />
-          {t('emergency.goNow')}
+          <span>{t('emergency.goNow')}</span>
         </h1>
         <p className="text-xl mt-3 font-semibold">{t('emergency.where')}</p>
         <p className="text-xl mt-2">{t('emergency.tellStaff')}</p>
