@@ -35,11 +35,28 @@ function loadState() {
 
 let state = loadState();
 let saveTimer = null;
-function persist() {
+function saveNow() {
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    fs.writeFile(STATE_FILE, JSON.stringify(state), () => {});
-  }, 500);
+  try {
+    // Write to a temp file, then rename, so a crash never leaves a half-written file.
+    fs.writeFileSync(`${STATE_FILE}.tmp`, JSON.stringify(state));
+    fs.renameSync(`${STATE_FILE}.tmp`, STATE_FILE);
+  } catch (err) {
+    console.error('Could not save state:', err.message);
+  }
+}
+/** Patient and staff actions are saved at once; clock ticks are batched. */
+function persist(immediate = false) {
+  if (immediate) return saveNow();
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveNow, 1000);
+  return undefined;
+}
+for (const sig of ['SIGINT', 'SIGTERM']) {
+  process.on(sig, () => {
+    saveNow();
+    process.exit(0);
+  });
 }
 
 // ---------- web server ----------
@@ -144,7 +161,7 @@ io.on('connection', (socket) => {
     try {
       const out = reduce(state, action, { realNow: Date.now() });
       state = out.state;
-      persist();
+      persist(true);
       broadcast();
       return reply({ result: out.result });
     } catch (err) {

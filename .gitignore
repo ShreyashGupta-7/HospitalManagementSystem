@@ -7,3 +7,4 @@ server/state.json
 test-results
 *.log
 .DS_Store
+server/state.json.tmp

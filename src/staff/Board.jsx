@@ -143,7 +143,7 @@ export default function Board() {
         </section>
       </main>
 
-      <footer className="bg-[#b41818] px-6 py-3 text-xl font-bold flex items-center gap-3">
+      <footer className="sticky bottom-0 bg-[#b41818] px-6 py-3 text-xl font-bold flex items-center gap-3">
         <Icon name="emergency" size={30} /> <span>{t('board.emergencyLine')}</span>
       </footer>
 
