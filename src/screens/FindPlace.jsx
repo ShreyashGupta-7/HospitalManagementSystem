@@ -38,7 +38,7 @@ export function FromSelect({ value, onChange, extra = [] }) {
       <select id="from" className="input" value={value} onChange={(e) => onChange(e.target.value)}>
         {options.map((id) => (
           <option key={id} value={id}>
-            {t.place(id)} · {t.floor(PLACES[id].floor)}
+            {t.place(id)} ({t(`floors.short.${PLACES[id].floor}`)})
           </option>
         ))}
       </select>

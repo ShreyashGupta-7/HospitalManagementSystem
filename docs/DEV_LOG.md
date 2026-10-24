@@ -122,3 +122,65 @@ Times are approximate (start: 24 Oct 2026, evening, IST).
   reports console errors, page errors, anything wider than the screen, and leftover English words.
 - First run found: React Router future-flag warnings (fixed by opting in) and a board crash (an effect returned a value) — fixed.
 - English screens: no errors, nothing wider than 360 px.
+
+## Phase 7 — Hindi and Tamil (≈1:30)
+
+**What**
+- `src/i18n/hi.js` and `src/i18n/ta.js`: every interface string, plus all 31 place names, short map labels and landmarks,
+  7 department cards, 8 doctors' names, directions, the emergency signs list, SMS text and board announcements.
+- Hospital-sign words kept as they are, in brackets: OPD, Casualty, X-ray, Pharmacy, Ramp, General Medicine, ENT.
+- Tamil changes word endings ("to/on the first floor"), so floor names appear in brackets in those sentences to keep the grammar correct.
+- `scripts/i18n-check.mjs`: fails if any language misses a key, a `{placeholder}`, a place, a department or a doctor.
+- Voices: Listen is hidden when the phone has no voice for the chosen language; the board always announces in
+  Hindi + English and adds Tamil only if a Tamil voice exists.
+
+## Phase 8 — Testing and fixes (≈2:00)
+
+**Automated tests written**
+- `scripts/smoke.mjs` — 21 routes × (English normal; Hindi biggest text; Tamil biggest text + high contrast) at 360 px:
+  console errors, page errors, anything wider than the screen, leftover English.
+- `scripts/e2e.mjs` — the full story: staff unlock → reset → 20 samples → board started → patient registers **in Hindi with
+  assisted mode** → Back keeps answers → token on dashboard → urgent flag → seen → "turn is close" banner + SMS →
+  board lists token → called screen with directions → no stairs used → survives reload.
+  Runs in two modes: three tabs in one browser (local) and three separate devices through the server.
+- `scripts/offline-test.mjs` — production build: patient socket gets no names; patient can't call next or reset;
+  wrong PIN refused; service worker caches the app; server killed → phone keeps last state with "Last updated";
+  offline registration → "Waiting to be confirmed"; slip, maps and directions open with no connection;
+  server back → registration confirmed, no duplicates.
+
+**Bugs found by the tests and fixed**
+1. React Router v7 warnings → opted into the future flags.
+2. TV board crashed (an effect returned a value) → fixed.
+3. Words split in the middle at the biggest text ("इमरजें सी") → normal word wrapping; boxes allowed to shrink
+   (fieldsets, flex/grid items, headings with an icon) so long Tamil words wrap instead of widening the page.
+4. Token wrapped onto two lines → tokens never wrap and scale with the screen width.
+5. Two-column button rows were cramped at big text → become one column at bigger text sizes.
+6. Dashboard showed only 5 waiting patients → 8, then "+N".
+7. **Server lost the last registration if it stopped within 0.5 s** (it saved on a timer) → now saves immediately
+   after every patient/staff action (write to temp file, then rename), and on shutdown.
+8. The board's red emergency line could scroll off a short screen → pinned to the bottom.
+9. "Where are you now?" dropdown cut off the floor name → short floor names.
+
+**Results**
+- All screens OK in 3 languages at 360 px; E2E passed in both modes; offline test passed (16 checks).
+- Sync speed: new registration on the dashboard in 55–105 ms; urgent flag in 77–236 ms.
+
+## Phase 9 — Performance (≈0:30)
+
+- Lighthouse (mobile, simulated slow 4G) first run: Performance 84 (First Contentful Paint 3.2 s).
+- Fixes: a tiny built-in loading screen in `index.html` that already shows the emergency message, 112 and 108
+  (useful when the signal is bad); less-used screens load only when opened; gzip compression on the server;
+  `robots.txt`.
+- Result: **Performance 97, Accessibility 100, Best Practices 100, SEO 100**; FCP 1.8 s, LCP 2.1 s.
+
+## Phase 10 — Submission documents (≈0:45)
+
+- `README.md` — problem, users, one line per screen, emergency handling and why the app never decides urgency,
+  design decisions, waiting-time formula, before/after comparison, how to run and test, what is simulated, next steps.
+- `docs/DEPLOY.md` — Render (one link, recommended), Vercel and Netlify (with the rewrite/redirect that stops a refresh
+  showing a 404), laptop-hotspot backup, offline testing in DevTools, Lighthouse.
+- `docs/DEMO_SCRIPT.md` — 3-minute script (patient, dashboard and board side by side; Hindi + assisted mode;
+  avoid-stairs route; 3-ahead alert; urgent flag) with one problem sentence per part, and a table of live-demo risks.
+- `docs/CHECKLIST.md` — every requirement with its status and limits.
+- `render.yaml`, `vercel.json`, `netlify.toml`, `.env.example`.
+- Screenshots in `docs/screenshots/` (`npm run screenshots`).

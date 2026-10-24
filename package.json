@@ -8,11 +8,16 @@
     "dev": "concurrently -k -n server,app -c blue,green \"npm:dev:server\" \"npm:dev:app\"",
     "dev:app": "vite --host",
     "dev:server": "node --watch server/index.js",
-    "dev:local": "vite --host",
     "build": "vite build",
     "start": "node server/index.js",
     "preview": "vite preview --host",
-    "test:e2e": "node scripts/e2e.mjs"
+    "test": "node scripts/engine-test.mjs && node scripts/route-test.mjs && node scripts/i18n-check.mjs",
+    "test:screens": "node scripts/smoke.mjs",
+    "test:e2e": "node scripts/e2e.mjs local",
+    "test:e2e:server": "node scripts/e2e.mjs server",
+    "test:offline": "npm run build && node scripts/offline-test.mjs",
+    "screenshots": "node scripts/screens.mjs",
+    "icons": "node scripts/make-icons.mjs"
   },
   "engines": {
     "node": ">=18"
