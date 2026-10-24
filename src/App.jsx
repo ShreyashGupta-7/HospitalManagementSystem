@@ -4,24 +4,31 @@ import Layout from './components/Layout.jsx';
 import { UrgentHelpProvider } from './components/UrgentHelp.jsx';
 import { ScreenSpeechProvider } from './lib/screenSpeech.jsx';
 import Home from './screens/Home.jsx';
-import LanguagePicker from './screens/LanguagePicker.jsx';
-import Register from './screens/Register.jsx';
-import Slip from './screens/Slip.jsx';
-import Turn from './screens/Turn.jsx';
-import HaveSlip from './screens/HaveSlip.jsx';
-import FindPlace from './screens/FindPlace.jsx';
 import Emergency from './screens/Emergency.jsx';
-import Settings from './screens/Settings.jsx';
-import Lost from './screens/Lost.jsx';
-import NotFound from './screens/NotFound.jsx';
 import { useT } from './lib/i18n.jsx';
 
+const Register = lazy(() => import('./screens/Register.jsx'));
+const Slip = lazy(() => import('./screens/Slip.jsx'));
+const Turn = lazy(() => import('./screens/Turn.jsx'));
+const HaveSlip = lazy(() => import('./screens/HaveSlip.jsx'));
+const FindPlace = lazy(() => import('./screens/FindPlace.jsx'));
+const Settings = lazy(() => import('./screens/Settings.jsx'));
+const Lost = lazy(() => import('./screens/Lost.jsx'));
+const LanguagePicker = lazy(() => import('./screens/LanguagePicker.jsx'));
+const NotFound = lazy(() => import('./screens/NotFound.jsx'));
+// Less-used screens load when opened, so the first screen appears fast on a weak connection.
+// Home and Emergency are always loaded at once.
 // Staff screens are loaded only when opened, so patient phones download less.
 const Staff = lazy(() => import('./staff/StaffApp.jsx'));
 const Board = lazy(() => import('./staff/Board.jsx'));
 
+// The loading message appears inside the page frame, so the Emergency bar never disappears.
 function Patient({ children }) {
-  return <Layout>{children}</Layout>;
+  return (
+    <Layout>
+      <Suspense fallback={<Loading />}>{children}</Suspense>
+    </Layout>
+  );
 }
 
 function ScrollAndFocus() {

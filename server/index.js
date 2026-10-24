@@ -8,6 +8,7 @@
 // - It also serves the built app (dist/), so one link opens everything.
 
 import express from 'express';
+import compression from 'compression';
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -63,6 +64,7 @@ for (const sig of ['SIGINT', 'SIGTERM']) {
 
 const app = express();
 app.disable('x-powered-by');
+app.use(compression()); // smaller downloads on weak hospital connections
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   next();

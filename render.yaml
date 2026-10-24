@@ -1,0 +1,15 @@
+# Render blueprint: one web service runs the Socket.io server and serves the built app.
+# Render dashboard -> New -> Blueprint -> pick this repo.
+services:
+  - type: web
+    name: opd-saathi
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: STAFF_PIN
+        value: "4321"

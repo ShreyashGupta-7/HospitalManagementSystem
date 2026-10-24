@@ -11,7 +11,17 @@
   </head>
   <body>
     <noscript>Please turn on JavaScript to use OPD Saathi. For an emergency, go to the Emergency (Casualty) department on the ground floor, or call 112 / 108.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Shown instantly, before the app loads (weak connections). React replaces it. -->
+      <div style="font-family:system-ui,'Noto Sans','Nirmala UI',sans-serif;max-width:36rem;margin:0 auto;padding:24px 16px;color:#111827;font-size:18px;line-height:1.5">
+        <p style="font-size:24px;font-weight:700;margin:0 0 8px">OPD Saathi · ओपीडी साथी · OPD சாத்தி</p>
+        <p style="margin:0 0 16px;color:#404c5c">City District Hospital · Loading… / लोड हो रहा है… / ஏற்றுகிறது…</p>
+        <p style="background:#b41818;color:#fff;border-radius:16px;padding:16px;margin:0;font-weight:700">
+          Emergency? Go to Casualty: ground floor, red doors. No token needed. Call 112 / 108.<br />
+          इमरजेंसी? भूतल पर लाल दरवाज़ों वाले Casualty जाएँ। 112 / 108
+        </p>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

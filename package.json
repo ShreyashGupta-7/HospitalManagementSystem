@@ -14,8 +14,11 @@
     "preview": "vite preview --host",
     "test:e2e": "node scripts/e2e.mjs"
   },
-  "engines": { "node": ">=18" },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
+    "compression": "^1.7.5",
     "express": "^4.21.2",
     "socket.io": "^4.8.1"
   },
